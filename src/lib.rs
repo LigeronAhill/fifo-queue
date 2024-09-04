@@ -70,8 +70,13 @@ mod tests {
         let q = Queue::new();
         q.push("first")?;
         q.push("second")?;
+        q.push("third")?;
+        q.push("fourth")?;
         let want = Some("first");
         let got = q.pop()?;
+        assert_eq!(want, got);
+        let want = vec!["second", "third", "fourth"];
+        let got = q.data.deref().lock()?.deref().clone();
         assert_eq!(want, got);
         Ok(())
     }
